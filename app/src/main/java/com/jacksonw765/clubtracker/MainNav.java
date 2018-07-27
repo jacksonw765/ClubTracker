@@ -83,7 +83,6 @@ public class MainNav extends AppCompatActivity
             android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, trig);
             fragmentTransaction.commit();
-
         } else if (id == R.id.nav_map) {
             ActivityMap trig = new ActivityMap();
             toolbar.setTitle("Map");

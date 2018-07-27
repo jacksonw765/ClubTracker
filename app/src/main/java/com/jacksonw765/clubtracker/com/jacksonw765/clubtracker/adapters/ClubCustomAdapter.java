@@ -1,4 +1,4 @@
-package com.jacksonw765.clubtracker.com.jacksonw765.clubtracker.backend;
+package com.jacksonw765.clubtracker.com.jacksonw765.clubtracker.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.jacksonw765.clubtracker.R;
+import com.jacksonw765.clubtracker.com.jacksonw765.clubtracker.backend.Club;
 
 import java.util.ArrayList;
 
