@@ -19,7 +19,7 @@ android:orientation="vertical"
 
     <TextView
         android:id="@+id/listView_shotData"
-        android:layout_width="76dp"
+        android:layout_width="104dp"
         android:layout_height="70dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
