@@ -14,12 +14,23 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_viewshotstats"
-        android:layout_width="250dp"
+        android:layout_width="300dp"
         android:layout_height="250dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="64dp"
-        android:layout_marginStart="64dp"
+        android:layout_marginBottom="55dp"
+        android:layout_marginStart="53dp"
         app:backgroundTint="@android:color/holo_orange_dark"
         app:elevation="5dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/shot_fab"
+        android:layout_width="300dp"
+        android:layout_height="250dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="55dp"
+        android:layout_marginEnd="53dp"
+        android:elevation="5dp"
+        android:src="@drawable/ic_menu_camera" />
 </RelativeLayout>
