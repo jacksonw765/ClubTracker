@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
@@ -57,13 +58,17 @@ public class ActivityShot extends Fragment {
         fabStats.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                android.support.v4.app.FragmentManager fragmentManager2 = getFragmentManager();
-                android.support.v4.app.FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
-                ActivityViewStats viewStats = new ActivityViewStats(shotDistances);
-                fragmentTransaction2.addToBackStack("abc");
-                fragmentTransaction2.replace(getId(), viewStats);
-                fragmentTransaction2.setTransition(android.support.v4.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                fragmentTransaction2.commit();
+                if (shotDistances.isEmpty()) {
+                    Snackbar.make(view, "No distances available", Snackbar.LENGTH_SHORT).show();
+                } else {
+                    android.support.v4.app.FragmentManager fragmentManager2 = getFragmentManager();
+                    android.support.v4.app.FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
+                    ActivityViewStats viewStats = new ActivityViewStats(shotDistances);
+                    fragmentTransaction2.addToBackStack("abc");
+                    fragmentTransaction2.replace(getId(), viewStats);
+                    fragmentTransaction2.setTransition(android.support.v4.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    fragmentTransaction2.commit();
+                }
             }
         });
 
