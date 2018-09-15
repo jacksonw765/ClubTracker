@@ -11,7 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.jacksonw765.clubtracker.R;
-import com.jacksonw765.clubtracker.com.jacksonw765.clubtracker.backend.StatMath;
+import com.jacksonw765.clubtracker.com.jacksonw765.clubtracker.backend.Helper;
 
 import java.util.ArrayList;
 
@@ -19,14 +19,14 @@ import java.util.ArrayList;
 public class ActivityViewStats extends Fragment {
     private ListView shotsList;
     private ArrayList<Integer> clubDistances;
-    private StatMath statMath;
+    private Helper helper;
 
     private TextView textMin, textTop25, textBottom25, textAverage, textMedian, textMode, textMax;
 
     @SuppressLint("ValidFragment")
     public ActivityViewStats(ArrayList<Integer> clubDistances) {
         this.clubDistances = clubDistances;
-        statMath = new StatMath(clubDistances);
+        helper = new Helper(clubDistances);
     }
 
     @Nullable
@@ -42,11 +42,13 @@ public class ActivityViewStats extends Fragment {
         textMedian = view.findViewById(R.id.textMedian);
         textMode = view.findViewById(R.id.textMode);
 
-        textMin.setText("" + statMath.getMinValue() + "yds");
-        textAverage.setText("" + statMath.getMean() + "yds");
-        textMedian.setText("" + statMath.getMedian() + "yds");
-        textMode.setText("" + statMath.getMode() + "yds");
-        textMax.setText("" + statMath.getMaxValue() + "yds");
+        textBottom25.setText("" + helper.getPercentile(25) + "yds");
+        textTop25.setText("" + helper.getPercentile(75) + "yds");
+        textMin.setText("" + helper.getMinValue() + "yds");
+        textAverage.setText("" + helper.getMean() + "yds");
+        textMedian.setText("" + helper.getMedian() + "yds");
+        textMode.setText("" + helper.getMode() + "yds");
+        textMax.setText("" + helper.getMaxValue() + "yds");
 
 
         return view;

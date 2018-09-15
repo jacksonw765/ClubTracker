@@ -1,11 +1,16 @@
 package com.jacksonw765.clubtracker.com.jacksonw765.clubtracker.backend;
 
-import java.util.ArrayList;
+import org.apache.commons.math3.stat.StatUtils;
 
-public class StatMath {
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class Helper {
     private final ArrayList<Integer> shotArray;
 
-    public StatMath(ArrayList<Integer> shots) {
+    public Helper(ArrayList<Integer> shots) {
         this.shotArray = shots;
     }
 
@@ -61,5 +66,39 @@ public class StatMath {
             sum += shotArray.get(i);
         }
         return sum / shotArray.size();
+    }
+
+    //this is a slow method!
+    public double getPercentile(int percentile) {
+        Collections.sort(shotArray);
+        double[] doubleArray = new double[shotArray.size()];
+        for (int i = 0; i < doubleArray.length; i++) {
+            doubleArray[i] = shotArray.get(i).doubleValue();
+        }
+        return StatUtils.percentile(doubleArray, percentile);
+    }
+
+    public static boolean containsIllegalChar(String clubName) {
+        boolean retVal = false;
+        try {
+            Matcher matcher = Pattern.compile("[~#@*+%{}<>\\[\\]|\"\\_^]").matcher(clubName);
+            retVal = matcher.find();
+            return retVal;
+        } catch (Exception e) {
+            return retVal;
+        }
+    }
+
+    public static boolean isNumeric(String shotData)
+    {
+        try
+        {
+            double d = Double.parseDouble(shotData);
+        }
+        catch(NumberFormatException nfe)
+        {
+            return false;
+        }
+        return true;
     }
 }

@@ -13,6 +13,9 @@ import java.util.ArrayList;
 
 public class Database {
 
+    //This database uses shared preferences to store data
+    //TODO: refactor to use room
+
     //KEYS
     public final static String CLUB_KEY = "SHOT_KEY";
     private SharedPreferences.Editor editor;

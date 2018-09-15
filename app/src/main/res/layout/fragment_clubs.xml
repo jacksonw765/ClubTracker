@@ -27,6 +27,6 @@
         android:layout_marginBottom="55dp"
         android:layout_marginEnd="53dp"
         android:elevation="5dp"
-        android:src="@drawable/ic_menu_camera" />
+        android:src="@drawable/plus_icon" />
 
 </RelativeLayout>

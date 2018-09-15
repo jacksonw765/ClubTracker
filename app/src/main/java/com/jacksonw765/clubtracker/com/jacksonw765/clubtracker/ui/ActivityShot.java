@@ -15,11 +15,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jacksonw765.clubtracker.R;
 import com.jacksonw765.clubtracker.com.jacksonw765.clubtracker.adapters.ShotCustomAdapter;
 import com.jacksonw765.clubtracker.com.jacksonw765.clubtracker.backend.Club;
+import com.jacksonw765.clubtracker.com.jacksonw765.clubtracker.backend.Helper;
 import com.jacksonw765.clubtracker.com.jacksonw765.clubtracker.com.jacksonw765.clubtracker.database.Database;
 
 import java.util.ArrayList;
@@ -29,10 +31,11 @@ public class ActivityShot extends Fragment {
     private ListView shotsList;
     private ArrayList<Integer> shotDistances;
     private ArrayList<Club> clubs;
-    private FloatingActionButton fabStats;
+    private FloatingActionButton fabStats, addShot;
     private Toolbar toolbar;
     private int clubIndex;
     private Database database;
+    private TextView textViewAddShot;
 
     @SuppressLint("ValidFragment")
     public ActivityShot(ArrayList<Club> clubs, Toolbar toolbar, int index, Context context) {
@@ -45,13 +48,14 @@ public class ActivityShot extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_shots, container, false);
 
         toolbar.setTitle(clubs.get(clubIndex).getName());
 
         shotsList = view.findViewById(R.id.shots_listView);
         fabStats = view.findViewById(R.id.fab_viewshotstats);
+        addShot = view.findViewById(R.id.shot_fab);
         final ShotCustomAdapter shotAdapter = new ShotCustomAdapter(view.getContext(), shotDistances);
         shotsList.setAdapter(shotAdapter);
 
@@ -102,6 +106,47 @@ public class ActivityShot extends Fragment {
         });
 
 
+        addShot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                final AlertDialog.Builder dialog = new AlertDialog.Builder(view.getContext());
+                final View dialogView = inflater.inflate(R.layout.dialog_addshot, null);
+                dialog.setView(dialogView);
+                dialog.setTitle("Manually Add Shot");
+                dialog.setCancelable(true);
+                dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                dialog.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        try {
+                            textViewAddShot = dialogView.findViewById(R.id.text_shotData);
+                            if (textViewAddShot != null) {
+                                String shotValue = String.valueOf(textViewAddShot.getText());
+                                if (shotValue.equals("")) {
+                                    Snackbar.make(view, "Club cannot be blank", Snackbar.LENGTH_SHORT).show();
+                                } else if (Helper.containsIllegalChar(shotValue)) {
+                                    Snackbar.make(view, "Club cannot contain illegal characters", Snackbar.LENGTH_SHORT).show();
+                                } else if(Helper.isNumeric(shotValue)) {
+                                    shotDistances.add(Integer.parseInt(shotValue));
+                                    shotAdapter.notifyDataSetChanged();
+                                    Toast.makeText(view.getContext(), "Shot added", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            Snackbar.make(view, "Error adding club", Snackbar.LENGTH_LONG).show();
+                        }
+                    }
+                });
+                dialog.create();
+                dialog.show();
+            }
+        });
 
         return view;
     }

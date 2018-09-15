@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.jacksonw765.clubtracker.R;
 import com.jacksonw765.clubtracker.com.jacksonw765.clubtracker.adapters.ClubCustomAdapter;
 import com.jacksonw765.clubtracker.com.jacksonw765.clubtracker.backend.Club;
+import com.jacksonw765.clubtracker.com.jacksonw765.clubtracker.backend.Helper;
 import com.jacksonw765.clubtracker.com.jacksonw765.clubtracker.com.jacksonw765.clubtracker.database.Database;
 
 import java.util.ArrayList;
@@ -138,7 +139,7 @@ public class ActivityClubs extends Fragment {
                                 String clubName = String.valueOf(textViewAddClub.getText());
                                 if (clubName.equals("")) {
                                     Snackbar.make(view, "Club cannot be blank", Snackbar.LENGTH_SHORT).show();
-                                } else if (containsIllegalChar(clubName)) {
+                                } else if (Helper.containsIllegalChar(clubName)) {
                                     Snackbar.make(view, "Club cannot contain illegal characters", Snackbar.LENGTH_SHORT).show();
                                 } else {
                                     clubs.add(new Club(clubName));
@@ -159,12 +160,6 @@ public class ActivityClubs extends Fragment {
         });
 
         return layoutView;
-    }
-
-    private boolean containsIllegalChar(String clubName) {
-        Pattern pattern = Pattern.compile("[~#@*+%{}<>\\[\\]|\"\\_^]");
-        Matcher matcher = pattern.matcher(clubName);
-        return matcher.find();
     }
 
     @Override
