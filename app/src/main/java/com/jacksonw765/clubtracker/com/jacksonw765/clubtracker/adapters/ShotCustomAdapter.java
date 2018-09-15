@@ -42,8 +42,8 @@ public class ShotCustomAdapter extends BaseAdapter
         int distance = distances.get(position);
         int positionName = position+1;
         convertView = LayoutInflater.from(mContext).inflate(R.layout.shots_listview_template,null);
-        TextView shotNumber = (TextView) convertView.findViewById(R.id.listView_ShotNumber);
-        TextView shotDistance = (TextView) convertView.findViewById(R.id.listView_shotData);
+        TextView shotNumber = convertView.findViewById(R.id.listView_ShotNumber);
+        TextView shotDistance = convertView.findViewById(R.id.listView_shotData);
 
         shotNumber.setText("Shot " + positionName);
         shotDistance.setText(distance + "yds");

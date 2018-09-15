@@ -50,7 +50,6 @@ public class ActivityViewStats extends Fragment {
         textMode.setText("" + helper.getMode() + "yds");
         textMax.setText("" + helper.getMaxValue() + "yds");
 
-
         return view;
     }
 }

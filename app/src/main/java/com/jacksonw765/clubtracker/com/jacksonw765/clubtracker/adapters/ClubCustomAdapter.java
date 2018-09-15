@@ -42,7 +42,7 @@ public class ClubCustomAdapter extends BaseAdapter
     public View getView(int position, View convertView, ViewGroup parent) {
         Club club = clubs.get(position);
         convertView = LayoutInflater.from(mContext).inflate(R.layout.clubs_listview_template,null);
-        TextView clubName = (TextView) convertView.findViewById(R.id.listView_clubName);
+        TextView clubName = convertView.findViewById(R.id.listView_clubName);
         clubName.setText(club.getName());
         return convertView;
     }
